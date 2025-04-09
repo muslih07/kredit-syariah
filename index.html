@@ -67,7 +67,7 @@
 </head>
 <body>
 
-  <h2>Formulir Pengajuan Kredit</h2>
+  <h2>Hitung Harga </h2>
   <div class="form-container">
     <iframe 
       src="https://docs.google.com/forms/d/e/1FAIpQLScdMY7gwxxY5ueZs1bb2sAuH-kqKas7I2CO8CVmFdxkaiWuiQ/viewform?embedded=true" 
@@ -86,7 +86,7 @@
       const res = await fetch(url);
       const text = await res.text();
       const rows = text.trim().split('\n').slice(1, 5); // Ambil A2-B5
-      const labels = ['Harga Toko', 'Harga Jual', 'Cicilan Bulanan', 'Menurun'];
+      const labels = ['Harga Toko', 'Lama Cicilan', 'Harga Jual', 'Cicilan Bulanan'];
       const container = document.getElementById('data-container');
       container.innerHTML = '';
 
