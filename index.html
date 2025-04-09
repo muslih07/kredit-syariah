@@ -16,6 +16,16 @@
       margin-top: 0;
       font-size: 24px;
     }
+    .form-container {
+      max-width: 100%;
+      height: 95vh;
+      margin-bottom: 40px;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
     .container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -40,7 +50,7 @@
     }
     button {
       display: block;
-      margin: 0 auto 40px auto;
+      margin: 0 auto 30px auto;
       padding: 12px 24px;
       font-size: 16px;
       border: none;
@@ -53,24 +63,11 @@
     button:hover {
       background-color: #c73124;
     }
-    .form-container {
-      max-width: 100%;
-      height: 95vh;
-    }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
   </style>
 </head>
 <body>
 
-  <h2>Data Kredit Syariah</h2>
-  <div class="container" id="data-container"></div>
-  <button onclick="loadData()">Refresh Data</button>
-
-  <h2>Formulir Pengajuan</h2>
+  <h2>Formulir Pengajuan Kredit</h2>
   <div class="form-container">
     <iframe 
       src="https://docs.google.com/forms/d/e/1FAIpQLScdMY7gwxxY5ueZs1bb2sAuH-kqKas7I2CO8CVmFdxkaiWuiQ/viewform?embedded=true" 
@@ -79,13 +76,17 @@
     </iframe>
   </div>
 
+  <h2>Hasil Perhitungan</h2>
+  <button onclick="loadData()">Refresh Data</button>
+  <div class="container" id="data-container"></div>
+
   <script>
     async function loadData() {
       const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTxoFsBNjnr3oTGW1RCmwY2t4QO0cg4AWq8qMPEutn0Lm-_d0dHxRh3IoSinof4_8sTlpKpmJkiEVfy/pub?gid=0&single=true&output=csv';
       const res = await fetch(url);
       const text = await res.text();
-      const rows = text.trim().split('\n').slice(1, 5); // A2 to B5
-      const labels = ['Harga Toko', 'Harga Jual', 'Cicilan Bulanan', 'Menurun']; // Label sesuai urutan
+      const rows = text.trim().split('\n').slice(1, 5); // Ambil A2-B5
+      const labels = ['Harga Toko', 'Harga Jual', 'Cicilan Bulanan', 'Menurun'];
       const container = document.getElementById('data-container');
       container.innerHTML = '';
 
