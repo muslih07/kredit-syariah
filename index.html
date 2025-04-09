@@ -1,21 +1,28 @@
+<div id="data-table"></div>
+
 <script>
   async function loadData() {
     const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTxoFsBNjnr3oTGW1RCmwY2t4QO0cg4AWq8qMPEutn0Lm-_d0dHxRh3IoSinof4_8sTlpKpmJkiEVfy/pub?gid=0&single=true&output=csv';
     const res = await fetch(url);
     const text = await res.text();
     const rows = text.trim().split('\n');
-    const latest = rows[rows.length - 1].split(',');
 
-    // Cek agar data tidak kosong
-    if (latest.length >= 4) {
-      document.getElementById('harga').textContent = latest[1];     // Kolom B
-      document.getElementById('lama').textContent = latest[2];      // Kolom C
-      document.getElementById('cicilan').textContent = latest[3];   // Kolom D
-    } else {
-      document.getElementById('harga').textContent = '-';
-      document.getElementById('lama').textContent = '-';
-      document.getElementById('cicilan').textContent = '-';
-    }
+    // Ambil A2 sampai B5 = index 1 sampai 4 (karena index 0 = header/A1)
+    const selectedRows = rows.slice(1, 5).map(row => row.split(','));
+
+    let html = '<table style="border-collapse: collapse; width: 100%;">';
+    html += '<tr><th style="border: 1px solid #ccc; padding: 8px;">Kolom A</th><th style="border: 1px solid #ccc; padding: 8px;">Kolom B</th></tr>';
+
+    selectedRows.forEach(row => {
+      html += `<tr>
+        <td style="border: 1px solid #ccc; padding: 8px;">${row[0] || '-'}</td>
+        <td style="border: 1px solid #ccc; padding: 8px;">${row[1] || '-'}</td>
+      </tr>`;
+    });
+
+    html += '</table>';
+    document.getElementById('data-table').innerHTML = html;
   }
+
   loadData();
 </script>
