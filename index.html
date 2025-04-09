@@ -1,95 +1,21 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulasi Kredit Syariah</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f5f5f5;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background: #fff;
-      padding: 30px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-      border-radius: 16px;
-    }
-    h1 {
-      font-size: 24px;
-      color: #d0011b;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
-    table th, table td {
-      padding: 12px 10px;
-      border: 1px solid #eee;
-      text-align: left;
-    }
-    table th {
-      background-color: #ffecec;
-      color: #d0011b;
-    }
-    .refresh-btn {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      background-color: #d0011b;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background 0.3s;
-    }
-    .refresh-btn:hover {
-      background-color: #b00017;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Simulasi Kredit Syariah</h1>
-    <table id="data-table">
-      <thead>
-        <tr><th>Nama</th><th>Harga</th><th>Lama Cicilan</th><th>Cicilan</th></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <button class="refresh-btn" onclick="loadData()">🔄 Refresh Data</button>
-  </div>
-
-  <script>
+<script>
+  async function loadData() {
     const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTxoFsBNjnr3oTGW1RCmwY2t4QO0cg4AWq8qMPEutn0Lm-_d0dHxRh3IoSinof4_8sTlpKpmJkiEVfy/pub?gid=0&single=true&output=csv';
+    const res = await fetch(url);
+    const text = await res.text();
+    const rows = text.trim().split('\n');
+    const latest = rows[rows.length - 1].split(',');
 
-    async function loadData() {
-      const response = await fetch(url + '?t=' + new Date().getTime());
-      const data = await response.text();
-      const rows = data.trim().split('\n').slice(-1);
-      const tbody = document.querySelector('#data-table tbody');
-      tbody.innerHTML = '';
-      rows.forEach(row => {
-        const cols = row.split(',');
-        const tr = document.createElement('tr');
-        cols.forEach(col => {
-          const td = document.createElement('td');
-          td.textContent = col;
-          tr.appendChild(td);
-        });
-        tbody.appendChild(tr);
-      });
+    // Cek agar data tidak kosong
+    if (latest.length >= 4) {
+      document.getElementById('harga').textContent = latest[1];     // Kolom B
+      document.getElementById('lama').textContent = latest[2];      // Kolom C
+      document.getElementById('cicilan').textContent = latest[3];   // Kolom D
+    } else {
+      document.getElementById('harga').textContent = '-';
+      document.getElementById('lama').textContent = '-';
+      document.getElementById('cicilan').textContent = '-';
     }
-
-    loadData();
-  </script>
-</body>
-</html>
+  }
+  loadData();
+</script>
