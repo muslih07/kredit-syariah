@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Data Kredit Syariah</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -10,34 +11,38 @@
       margin: 0;
       padding: 20px;
     }
+    h2 {
+      text-align: center;
+      margin-top: 0;
+      font-size: 24px;
+    }
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 16px;
+      margin-bottom: 30px;
     }
     .product-card {
       background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      padding: 16px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 24px;
       text-align: center;
-      transition: 0.2s;
-    }
-    .product-card:hover {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     .title {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: bold;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .value {
-      font-size: 18px;
+      font-size: 22px;
       color: #d0011b;
     }
     button {
-      margin-top: 20px;
-      padding: 10px 20px;
+      display: block;
+      margin: 0 auto 40px auto;
+      padding: 12px 24px;
+      font-size: 16px;
       border: none;
       border-radius: 8px;
       background-color: #f53d2d;
@@ -48,44 +53,54 @@
     button:hover {
       background-color: #c73124;
     }
+    .form-container {
+      max-width: 100%;
+      height: 95vh;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
   </style>
 </head>
-  
-  <div class="bg-white rounded-2xl p-4 shadow-md my-6">
-  <h2 class="text-xl font-bold mb-4">Perhitungan Harga</h2>
-  <iframe 
-    src="https://docs.google.com/forms/d/e/1FAIpQLScdMY7gwxxY5ueZs1bb2sAuH-kqKas7I2CO8CVmFdxkaiWuiQ/viewform?embedded=true" 
-    style="width:100%; height:65vh; border:none; transform: scale(2.1); transform-origin: top left;" 
-    allowfullscreen>
-    Memuat…
-  </iframe>
-    
-</div>
 <body>
+
   <h2>Data Kredit Syariah</h2>
   <div class="container" id="data-container"></div>
   <button onclick="loadData()">Refresh Data</button>
+
+  <h2>Formulir Pengajuan</h2>
+  <div class="form-container">
+    <iframe 
+      src="https://docs.google.com/forms/d/e/1FAIpQLScdMY7gwxxY5ueZs1bb2sAuH-kqKas7I2CO8CVmFdxkaiWuiQ/viewform?embedded=true" 
+      allowfullscreen>
+      Memuat…
+    </iframe>
+  </div>
 
   <script>
     async function loadData() {
       const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTxoFsBNjnr3oTGW1RCmwY2t4QO0cg4AWq8qMPEutn0Lm-_d0dHxRh3IoSinof4_8sTlpKpmJkiEVfy/pub?gid=0&single=true&output=csv';
       const res = await fetch(url);
       const text = await res.text();
-      const rows = text.trim().split('\n').slice(1, 5); // Menampilkan A2 sampai B5
+      const rows = text.trim().split('\n').slice(1, 5); // A2 to B5
+      const labels = ['Harga Toko', 'Harga Jual', 'Cicilan Bulanan', 'Menurun']; // Label sesuai urutan
       const container = document.getElementById('data-container');
       container.innerHTML = '';
 
-      rows.forEach(row => {
+      rows.forEach((row, i) => {
         const cols = row.split(',');
         const card = document.createElement('div');
         card.className = 'product-card';
         card.innerHTML = `
-          <div class="title">${cols[0]}</div>
+          <div class="title">${labels[i] || cols[0]}</div>
           <div class="value">${cols[1]}</div>
         `;
         container.appendChild(card);
       });
     }
+
     loadData();
   </script>
 </body>
