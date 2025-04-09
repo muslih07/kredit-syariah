@@ -1,28 +1,81 @@
-<div id="data-table"></div>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Kredit Syariah</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 16px;
+      text-align: center;
+      transition: 0.2s;
+    }
+    .product-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .value {
+      font-size: 18px;
+      color: #d0011b;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #f53d2d;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #c73124;
+    }
+  </style>
+</head>
+<body>
+  <h2>Data Kredit Syariah</h2>
+  <div class="container" id="data-container"></div>
+  <button onclick="loadData()">Refresh Data</button>
 
-<script>
-  async function loadData() {
-    const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTxoFsBNjnr3oTGW1RCmwY2t4QO0cg4AWq8qMPEutn0Lm-_d0dHxRh3IoSinof4_8sTlpKpmJkiEVfy/pub?
-    const res = await fetch(url);
-    const text = await res.text();
-    const rows = text.trim().split('\n');
+  <script>
+    async function loadData() {
+      const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTxoFsBNjnr3oTGW1RCmwY2t4QO0cg4AWq8qMPEutn0Lm-_d0dHxRh3IoSinof4_8sTlpKpmJkiEVfy/pub?gid=0&single=true&output=csv';
+      const res = await fetch(url);
+      const text = await res.text();
+      const rows = text.trim().split('\n').slice(1, 5); // Menampilkan A2 sampai B5
+      const container = document.getElementById('data-container');
+      container.innerHTML = '';
 
-    // Ambil A2 sampai B5 = index 1 sampai 4 (karena index 0 = header/A1)
-    const selectedRows = rows.slice(1, 5).map(row => row.split(','));
-
-    let html = '<table style="border-collapse: collapse; width: 100%;">';
-    html += '<tr><th style="border: 1px solid #ccc; padding: 8px;">Kolom A</th><th style="border: 1px solid #ccc; padding: 8px;">Kolom B</th></tr>';
-
-    selectedRows.forEach(row => {
-      html += `<tr>
-        <td style="border: 1px solid #ccc; padding: 8px;">${row[0] || '-'}</td>
-        <td style="border: 1px solid #ccc; padding: 8px;">${row[1] || '-'}</td>
-      </tr>`;
-    });
-
-    html += '</table>';
-    document.getElementById('data-table').innerHTML = html;
-  }
-
-  loadData();
-</script>
+      rows.forEach(row => {
+        const cols = row.split(',');
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <div class="title">${cols[0]}</div>
+          <div class="value">${cols[1]}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+    loadData();
+  </script>
+</body>
+</html>
