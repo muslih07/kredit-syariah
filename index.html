@@ -118,8 +118,8 @@
       try {
         const res = await fetch(url);
         const text = await res.text();
-        const rows = text.trim().split('\n').slice(1, 5);
-        const labels = ['Harga Toko', 'Lama Cicilan', 'Harga Jual', 'Cicilan Bulanan'];
+        const rows = text.trim().split('\n').slice(1, 6);
+        const labels = ['Harga Toko', 'Lama Cicilan', 'Harga Jual', 'Cicilan Bulanan', 'Batas Akhir Cicilan'];      
         const container = document.getElementById('data-container');
         container.innerHTML = '';
 
