@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<body>
+<a href="index.html" style="display: inline-block; padding: 10px 20px; background-color: #f26522; color: white; text-decoration: none; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); font-weight: bold;">
+  ⬅ Kembali ke Beranda
+</a>
+  <h1>Pertanyaan yang Sering Diajukan</h1>
+<style>
+  .accordion {
+    cursor: pointer;
+    background: #eee;
+    padding: 14px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    font-weight: bold;
+    transition: background 0.3s;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
 
+  .accordion:hover {
+    background: #ddd;
+  }
+
+  .panel {
+    padding: 0 18px;
+    display: none;
+    background-color: #f9f9f9;
+    overflow: hidden;
+    border-left: 2px solid #ccc;
+    margin-bottom: 10px;
+  }
+</style>
+
+<button class="accordion">Langkah Pengajuan Kredit</button>
+<div class="panel">
+  <p>Hubungi Admin Kami<br>
+  Tunggu survei 1-2 hari (InshaAllah kami akan hadir di rumah Anda)<br>
+  Silakan isi surat kesepakatan (diberikan saat survei)<br>
+  Jika disetujui maka akan dilanjutkan proses jual beli<br>
+  Jika belum disetujui maka jual beli akan ditunda</p>
+</div>
+
+<button class="accordion">Pilih Skema Pembelian</button>
+<div class="panel">
+  <p><strong>Cara Pertama:</strong> Anda tunjukkan barangnya dan kami yang beli.<br>
+  <strong>Cara Kedua:</strong> Anda ikut bersama kami mencari barang.<br>
+  <strong>Cara Ketiga:</strong> Kami mencarikan barang untuk Anda.</p>
+</div>
+
+<script>
+  const acc = document.querySelectorAll(".accordion");
+  acc.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      this.classList.toggle("active");
+      const panel = this.nextElementSibling;
+      panel.style.display = panel.style.display === "block" ? "none" : "block";
+    });
+  });
+</script>
+
+
+</body>
+</html>
