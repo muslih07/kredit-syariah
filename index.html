@@ -119,7 +119,7 @@
         const res = await fetch(url);
         const text = await res.text();
         const rows = text.trim().split('\n').slice(1, 6);
-        const labels = ['Harga Toko', 'Lama Cicilan', 'Harga Jual', 'Cicilan Bulanan', 'Batas Akhir Cicilan'];      
+        const labels = ['Harga Barang', 'Lama Cicilan', 'Harga Jual', 'Cicilan Bulanan', 'Batas Akhir Cicilan'];      
         const container = document.getElementById('data-container');
         container.innerHTML = '';
 
@@ -159,21 +159,21 @@
   <ol type="a">
     <li>Tunjukkan ke kami barang apa yang Anda perlukan, di mana tokonya, berapa harganya, dan detail lainnya.</li>
     <li>Kami datang ke toko yang Anda tunjukkan.</li>
-    <li>Kami membeli barang tersebut dan menjualnya kepada Anda dengan harga yang disepakati.</li>
+    <li>Kami membeli barang tersebut dan menjualnya ke Anda dengan harga sesuai hasil perhitungan.</li>
     <li>Anda tinggal mengambil barang tersebut ke kami, atau barang kami antar ke rumah.</li>
   </ol>
 
   <h3>2. Cara Kedua</h3>
   <ol type="a">
     <li>Anda bersama kami mencari barang ke toko.</li>
-    <li>Barang pilihan Anda kami beli dan langsung kami jual kepada Anda dengan harga yang disepakati.</li>
+    <li>Barang pilihan Anda kami beli dan langsung kami jual ke Anda dengan harga sesuai hasil perhitungan.</li>
   </ol>
   
   <h3>3. Cara Ketiga</h3>
   <ol type="a">
     <li>Anda meminta kami untuk mencarikan barang.</li>
     <li>Setelah barang kami dapatkan, kami akan membuat kesepakatan dengan Anda.</li>
-    <li>Barang kami beli dan kami jual kepada Anda dengan harga yang disepakati.</li>
+    <li>Barang kami beli dan kami jual ke Anda dengan harga sesuai hasil perhitungan.</li>
   </ol>
 </div>
 
